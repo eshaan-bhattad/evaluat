@@ -10,7 +10,7 @@ class User(models.Model):
     number = models.CharField(max_length=100)
     linkedin = models.CharField(max_length=100)
     github = models.CharField(max_length=100)
-    evaluations = models.ManyToManyField('evaluatapp.Evaluation',related_name='evaluator_evaluatee', blank=True)
+    groups = models.ManyToManyField('evaluatapp.Evaluation',related_name='evaluator_evaluatee', blank=True)
 
     def __str__(self):
         return self.name
@@ -27,7 +27,7 @@ class Group(models.Model):
     students = models.ManyToManyField('evaluatapp.User',related_name='user_groups')
     githubRepo = models.CharField(max_length=100)
     owner =  models.ForeignKey(User,on_delete=models.CASCADE, default=None)
-
+    evaluations = models.ManyToManyField('evaluatapp.Evaluation', related_name = "group_evaluations", blank=True)
     def __str__(self):
         return self.githubRepo
 
